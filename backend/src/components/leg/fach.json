@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_leg_faches",
+  "info": {
+    "displayName": "SubjectContainer",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "competence": {
+      "displayName": "Kompetenz",
+      "type": "component",
+      "repeatable": true,
+      "component": "leg.kompetenz",
+      "required": true
+    },
+    "grade": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::grade.grade"
+    },
+    "subject": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::subject.subject"
+    }
+  }
+}

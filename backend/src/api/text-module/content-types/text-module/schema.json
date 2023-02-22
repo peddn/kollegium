@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "text_modules",
+  "info": {
+    "singularName": "text-module",
+    "pluralName": "text-modules",
+    "displayName": "TextModule",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true,
+      "maxLength": 512
+    },
+    "grade": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::grade.grade"
+    },
+    "subject": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::subject.subject"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "legs",
+  "info": {
+    "singularName": "leg",
+    "pluralName": "legs",
+    "displayName": "LEG",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "subjectContainer": {
+      "type": "component",
+      "repeatable": true,
+      "component": "leg.fach",
+      "required": true
+    },
+    "year": {
+      "type": "enumeration",
+      "enum": [
+        "year_2022_2023",
+        "year_2023_2024"
+      ],
+      "required": true,
+      "default": "year_2022_2023"
+    },
+    "student": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::student.student"
+    }
+  }
+}
