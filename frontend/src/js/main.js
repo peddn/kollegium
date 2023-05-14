@@ -1,6 +1,6 @@
 import '../scss/main.scss'
 
-import { createApp } from 'vue'
+import { createApp, markRaw } from 'vue'
 import { createPinia } from 'pinia'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
@@ -9,11 +9,15 @@ import Icons from 'uikit/dist/js/uikit-icons'
 
 import App from './components/App.vue'
 import Home from './components/Home.vue'
-import Dashboard from './components/Dashboard.vue'
+import Dashboard from './components/dashboard/Dashboard.vue'
+import Tickets from './components/tickets/Tickets.vue'
 import Account from './components/user/Account.vue'
 
+// inject axios in evers store
+// https://pinia.vuejs.org/core-concepts/plugins.html#adding-new-external-properties
 const pinia = createPinia()
 
+// ROUTES
 const routes = [
   {
     path: '/',
@@ -24,6 +28,11 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: Dashboard,
+  },
+  {
+    path: '/tickets',
+    name: 'tickets',
+    component: Tickets,
   },
   {
     path: '/account',
@@ -42,6 +51,7 @@ const router = createRouter({
 UIkit.use(Icons)
 
 const app = createApp(App)
+
 app.use(pinia)
 app.use(router)
 app.mount('#app')

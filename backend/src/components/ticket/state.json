@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_ticket_states",
+  "info": {
+    "displayName": "state"
+  },
+  "options": {},
+  "attributes": {
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "open",
+        "inprogress",
+        "pending",
+        "resolved",
+        "closed"
+      ]
+    }
+  }
+}

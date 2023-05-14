@@ -1,0 +1,96 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tickets",
+  "info": {
+    "singularName": "ticket",
+    "pluralName": "tickets",
+    "displayName": "Ticket",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "creator": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "tickets"
+    },
+    "creationDate": {
+      "type": "datetime",
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "open",
+        "inprogress",
+        "pending",
+        "resolved",
+        "closed"
+      ],
+      "default": "open",
+      "required": true
+    },
+    "priority": {
+      "type": "enumeration",
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "required": true,
+      "default": "medium"
+    },
+    "subject": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "hardware",
+        "software",
+        "network",
+        "cloud",
+        "mobile"
+      ]
+    },
+    "solution": {
+      "type": "text"
+    },
+    "completionDate": {
+      "type": "datetime"
+    },
+    "attachements": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "history": {
+      "displayName": "history",
+      "type": "component",
+      "repeatable": true,
+      "component": "ticket.history"
+    },
+    "outsourced": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "externalID": {
+      "type": "uid"
+    }
+  }
+}

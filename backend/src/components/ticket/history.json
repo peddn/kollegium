@@ -1,0 +1,40 @@
+{
+  "collectionName": "components_ticket_histories",
+  "info": {
+    "displayName": "history",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "supporter": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "changeDate": {
+      "type": "datetime",
+      "required": true
+    },
+    "oldStatus": {
+      "type": "enumeration",
+      "enum": [
+        "open",
+        "inprogress",
+        "pending",
+        "resolved",
+        "closed"
+      ],
+      "required": true
+    },
+    "newStatus": {
+      "type": "enumeration",
+      "enum": [
+        "open",
+        "inprogress",
+        "pending",
+        "resolved",
+        "closed"
+      ]
+    }
+  }
+}

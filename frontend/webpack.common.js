@@ -1,6 +1,5 @@
 const path = require('path')
 
-const Dotenv = require('dotenv-webpack')
 const { VueLoaderPlugin } = require('vue-loader')
 const CopyPlugin = require('copy-webpack-plugin')
 
@@ -29,10 +28,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new Dotenv({
-      systemvars: false, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
-      prefix: 'meta.env.', // reference your env variables as 'meta.env.ENV_VAR'.
-    }),
     new VueLoaderPlugin(),
     new CopyPlugin({
       patterns: [{ from: 'src/assets/icons/*.png', to: 'assets/icons/[base]' }],

@@ -74,6 +74,12 @@
       "relation": "manyToMany",
       "target": "api::subject.subject",
       "inversedBy": "users"
+    },
+    "tickets": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::ticket.ticket",
+      "mappedBy": "creator"
     }
   }
 }

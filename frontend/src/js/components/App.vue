@@ -5,11 +5,7 @@
 
 <template>
   <NavbarMain />
-
-  <div>
-    <router-view></router-view>
-  </div>
-
+  <router-view></router-view>
   <div id="modals">
     <LoginModal />
   </div>

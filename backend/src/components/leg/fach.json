@@ -13,11 +13,6 @@
       "component": "leg.kompetenz",
       "required": true
     },
-    "grade": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::grade.grade"
-    },
     "subject": {
       "type": "relation",
       "relation": "oneToOne",

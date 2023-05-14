@@ -1,12 +1,18 @@
 <script setup>
-  import { onBeforeRouteLeave } from 'vue-router'
+  import { useRoute } from 'vue-router'
   import { useAppStore } from '../stores/app.js'
+
   const appStore = useAppStore()
-  onBeforeRouteLeave((to, from) => {
-    appStore.setMenuItemActive(to.name)
-  })
+
+  // set corresponding menu item to active
+  const route = useRoute()
+  appStore.setMenuItemActive(route.name)
 </script>
 
 <template>
-  <h1>Home</h1>
+  <div class="uk-section">
+    <div class="uk-container">
+      <h2>Home</h2>
+    </div>
+  </div>
 </template>
