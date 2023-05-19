@@ -19,4 +19,4 @@ class ParsingError extends Error {
   }
 }
 
-export { NetworkError, HTTPError, ParsingError }
+export {NetworkError, HTTPError, ParsingError}

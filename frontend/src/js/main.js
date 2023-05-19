@@ -1,8 +1,8 @@
 import '../scss/main.scss'
 
-import { createApp, markRaw } from 'vue'
-import { createPinia } from 'pinia'
-import { createRouter, createWebHashHistory } from 'vue-router'
+import {createApp, markRaw} from 'vue'
+import {createPinia} from 'pinia'
+import {createRouter, createWebHashHistory} from 'vue-router'
 
 import UIkit from 'uikit'
 import Icons from 'uikit/dist/js/uikit-icons'

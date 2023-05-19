@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ticket Tabelle</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.6.18/css/uikit.min.css"
+    />
+    <style>
+      #ticketsTable th {
+        padding: 8px 12px;
+      }
+      .disabled-button {
+        pointer-events: none;
+        opacity: 0.5;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="uk-section">
+      <div class="uk-container">
+        <table id="ticketsTable" class="uk-table uk-table-striped">
+          <thead>
+            <tr>
+              <th><span>Zuweisen</span></th>
+              <th><span>Erstellt am</span></th>
+              <th><span>Status</span></th>
+              <th><span>Priorität</span></th>
+              <th><span>Betreff</span></th>
+              <th><span>Beschreibung</span></th>
+              <th><span>Kategorie</span></th>
+              <th><span>Ausgelagert</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <img
+                  src="https://www.gravatar.com/avatar/00000000000000000000000000000000"
+                  class="uk-border-circle"
+                  style="width: 50px; height: 50px"
+                  alt="Bearbeiter"
+                />
+              </td>
+              <td>18.05.2023, 12:00</td>
+              <td>
+                <span class="uk-label uk-label-warning">In Bearbeitung</span>
+              </td>
+              <td><span class="uk-label">Hoch</span></td>
+              <td>Problem mit Server</td>
+              <td>Der Server antwortet nicht auf Anfragen.</td>
+              <td>Technik</td>
+              <td>
+                <button class="uk-button uk-button-small disabled-button">
+                  Auslagern
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <img
+                  src="https://www.gravatar.com/avatar/11111111111111111111111111111111"
+                  class="uk-border-circle"
+                  style="width: 50px; height: 50px"
+                  alt="Bearbeiter"
+                />
+              </td>
+              <td>18.05.2023, 13:00</td>
+              <td>
+                <span class="uk-label uk-label-success">Geschlossen</span>
+              </td>
+              <td><span class="uk-label">Mittel</span></td>
+              <td>Problem mit Website</td>
+              <td>Die Website lädt sehr langsam.</td>
+              <td>Web</td>
+              <td>12345</td>
+            </tr>
+            <tr>
+              <td>
+                <button class="uk-button uk-button-small">Zuweisen</button>
+              </td>
+              <td>18.05.2023, 14:00</td>
+              <td><span class="uk-label">Offen</span></td>
+              <td><span class="uk-label uk-label-warning">Niedrig</span></td>
+              <td>Problem mit E-Mail</td>
+              <td>Die E-Mails werden nicht gesendet.</td>
+              <td>Kommunikation</td>
+              <td>
+                <button class="uk-button uk-button-small">Auslagern</button>
+              </td>
+            </tr>
+            <!-- Weitere Zeilen hier -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.6.18/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.6.18/js/uikit-icons.min.js"></script>
+  </body>
+</html>

@@ -1,6 +1,6 @@
 const path = require('path')
 
-const { VueLoaderPlugin } = require('vue-loader')
+const {VueLoaderPlugin} = require('vue-loader')
 const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
@@ -30,7 +30,7 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin(),
     new CopyPlugin({
-      patterns: [{ from: 'src/assets/icons/*.png', to: 'assets/icons/[base]' }],
+      patterns: [{from: 'src/assets/icons/*.png', to: 'assets/icons/[base]'}],
     }),
   ],
 }

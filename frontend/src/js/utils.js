@@ -7,6 +7,6 @@ export const uiErrorNotification = (error, description) => {
       error.name +
       '<br><p>' +
       error.message +
-      '</p>'
+      '</p>',
   )
 }

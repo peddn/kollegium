@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
 /**
  * ticket service
  */
 
-const { createCoreService } = require('@strapi/strapi').factories;
+const {createCoreService} = require('@strapi/strapi').factories
 
-module.exports = createCoreService('api::ticket.ticket');
+module.exports = createCoreService('api::ticket.ticket')

@@ -1,5 +1,5 @@
-import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import {defineStore} from 'pinia'
+import {ref} from 'vue'
 
 export const useAppStore = defineStore('app', () => {
   const activeMenuItem = ref('home')
@@ -12,5 +12,5 @@ export const useAppStore = defineStore('app', () => {
     return item === activeMenuItem.value
   }
 
-  return { activeMenuItem, setMenuItemActive, isMenuItemActive }
+  return {activeMenuItem, setMenuItemActive, isMenuItemActive}
 })

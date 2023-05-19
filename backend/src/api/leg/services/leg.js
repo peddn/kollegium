@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
 /**
  * leg service
  */
 
-const { createCoreService } = require('@strapi/strapi').factories;
+const {createCoreService} = require('@strapi/strapi').factories
 
-module.exports = createCoreService('api::leg.leg');
+module.exports = createCoreService('api::leg.leg')

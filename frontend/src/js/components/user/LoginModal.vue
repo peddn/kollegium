@@ -1,29 +1,29 @@
 <script setup>
-  import { ref } from 'vue'
+import {ref} from 'vue'
 
-  import { useUserStore } from '../../stores/user.js'
+import {useUserStore} from '../../stores/user.js'
 
-  import UIkit from 'uikit'
+import UIkit from 'uikit'
 
-  const userStore = useUserStore()
+const userStore = useUserStore()
 
-  const identifier = ref('')
-  const password = ref('')
+const identifier = ref('')
+const password = ref('')
 
-  const login = (event) => {
-    try {
-      userStore.login(identifier.value, password.value)
-      resetForm()
-    } catch (error) {
-      UIkit.notification({ message: error.name, status: 'danger' })
-    }
+const login = (event) => {
+  try {
+    userStore.login(identifier.value, password.value)
+    resetForm()
+  } catch (error) {
+    UIkit.notification({message: error.name, status: 'danger'})
   }
+}
 
-  const resetForm = (event) => {
-    identifier.value = ''
-    password.value = ''
-    document.getElementById('login-modal-form').reset()
-  }
+const resetForm = (event) => {
+  identifier.value = ''
+  password.value = ''
+  document.getElementById('login-modal-form').reset()
+}
 </script>
 
 <template>

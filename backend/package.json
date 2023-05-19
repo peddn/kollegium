@@ -9,11 +9,13 @@
     "build": "strapi build",
     "strapi": "strapi"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "prettier": "^2.8.8"
+  },
   "dependencies": {
-    "@strapi/strapi": "4.10.5",
-    "@strapi/plugin-users-permissions": "4.10.5",
     "@strapi/plugin-i18n": "4.10.5",
+    "@strapi/plugin-users-permissions": "4.10.5",
+    "@strapi/strapi": "4.10.5",
     "better-sqlite3": "8.3.0"
   },
   "author": {

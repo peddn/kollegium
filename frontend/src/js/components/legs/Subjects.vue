@@ -1,7 +1,7 @@
 <script setup>
-  import { useDashboardStore } from '../../stores/dashboard.js'
-  import Subject from './Subject.vue'
-  const dashboardStore = useDashboardStore()
+import {useDashboardStore} from '../../stores/dashboard.js'
+import Subject from './Subject.vue'
+const dashboardStore = useDashboardStore()
 </script>
 
 <template>

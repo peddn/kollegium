@@ -1,6 +1,6 @@
 <script setup>
-  import NavbarMain from '../components/navbar/Main.vue'
-  import LoginModal from '../components/user/LoginModal.vue'
+import NavbarMain from '../components/navbar/Main.vue'
+import LoginModal from '../components/user/LoginModal.vue'
 </script>
 
 <template>

@@ -1,7 +1,7 @@
 <script setup>
-  const props = defineProps({
-    group: Object,
-  })
+const props = defineProps({
+  group: Object,
+})
 </script>
 
 <template>

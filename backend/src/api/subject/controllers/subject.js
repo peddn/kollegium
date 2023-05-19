@@ -1,16 +1,16 @@
-"use strict";
+'use strict'
 
 /**
  * subject controller
  */
 
-const { createCoreController } = require("@strapi/strapi").factories;
+const {createCoreController} = require('@strapi/strapi').factories
 
-module.exports = createCoreController("api::subject.subject", ({ strapi }) => ({
+module.exports = createCoreController('api::subject.subject', ({strapi}) => ({
   async own(ctx) {
-    const userId = ctx.state.user.id;
+    const userId = ctx.state.user.id
     const entries = await strapi.entityService.findMany(
-      "api::subject.subject",
+      'api::subject.subject',
       {
         filters: {
           users: {
@@ -19,8 +19,8 @@ module.exports = createCoreController("api::subject.subject", ({ strapi }) => ({
             },
           },
         },
-      }
-    );
-    return entries;
+      },
+    )
+    return entries
   },
-}));
+}))

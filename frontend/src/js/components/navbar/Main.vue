@@ -1,11 +1,11 @@
 <script setup>
-  import { useAppStore } from '../../stores/app.js'
-  import { useUserStore } from '../../stores/user.js'
+import {useAppStore} from '../../stores/app.js'
+import {useUserStore} from '../../stores/user.js'
 
-  import ItemUser from '../navbar/ItemUser.vue'
+import ItemUser from '../navbar/ItemUser.vue'
 
-  const appStore = useAppStore()
-  const userStore = useUserStore()
+const appStore = useAppStore()
+const userStore = useUserStore()
 </script>
 
 <template>
@@ -14,9 +14,7 @@
       <div uk-navbar>
         <div class="uk-navbar-left">
           <ul class="uk-navbar-nav" v-if="userStore.authenticated">
-            <li
-              v-bind:class="{ 'uk-active': appStore.isMenuItemActive('home') }"
-            >
+            <li v-bind:class="{'uk-active': appStore.isMenuItemActive('home')}">
               <router-link to="/">Home</router-link>
             </li>
             <li
@@ -35,9 +33,7 @@
             </li>
           </ul>
           <ul class="uk-navbar-nav" v-else>
-            <li
-              v-bind:class="{ 'uk-active': appStore.isMenuItemActive('home') }"
-            >
+            <li v-bind:class="{'uk-active': appStore.isMenuItemActive('home')}">
               <router-link to="/">Home</router-link>
             </li>
           </ul>

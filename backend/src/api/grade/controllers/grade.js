@@ -1,9 +1,9 @@
-'use strict';
+'use strict'
 
 /**
  * grade controller
  */
 
-const { createCoreController } = require('@strapi/strapi').factories;
+const {createCoreController} = require('@strapi/strapi').factories
 
-module.exports = createCoreController('api::grade.grade');
+module.exports = createCoreController('api::grade.grade')

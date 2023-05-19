@@ -1,9 +1,9 @@
-import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
+import {ref, computed} from 'vue'
+import {defineStore} from 'pinia'
 
-import { useUserStore } from './user.js'
+import {useUserStore} from './user.js'
 
-import { uiErrorNotification } from '../utils.js'
+import {uiErrorNotification} from '../utils.js'
 
 export const useDashboardStore = defineStore('dashboard', () => {
   // get the user store
@@ -75,5 +75,5 @@ export const useDashboardStore = defineStore('dashboard', () => {
     }
   }
 
-  return { groups, subjects, getGroups, getSubjects }
+  return {groups, subjects, getGroups, getSubjects}
 })

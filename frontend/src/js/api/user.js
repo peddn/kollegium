@@ -1,4 +1,4 @@
-import { NetworkError, HTTPError, ParsingError } from './errors.js'
+import {NetworkError, HTTPError, ParsingError} from './errors.js'
 
 const API_URL = process.env.API_URL
 

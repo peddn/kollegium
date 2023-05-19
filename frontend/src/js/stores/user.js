@@ -1,12 +1,12 @@
-import { defineStore } from 'pinia'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import {defineStore} from 'pinia'
+import {ref} from 'vue'
+import {useRouter} from 'vue-router'
 
 import UIkit from 'uikit'
 
-import { userLogin } from '../api/user.js'
-import { NetworkError, HTTPError, ParsingError } from '../api/errors.js'
-import { uiErrorNotification } from '../utils.js'
+import {userLogin} from '../api/user.js'
+import {NetworkError, HTTPError, ParsingError} from '../api/errors.js'
+import {uiErrorNotification} from '../utils.js'
 
 export const useUserStore = defineStore('user', () => {
   const user = ref({})
@@ -33,6 +33,7 @@ export const useUserStore = defineStore('user', () => {
         // initialize and hide the modal
         const loginModal = document.getElementById('login-modal')
         UIkit.modal(loginModal).hide()
+        router.push('/dashboard')
       })
       .catch((error) => {
         switch (error.name) {
@@ -53,16 +54,16 @@ export const useUserStore = defineStore('user', () => {
             console.error('unknown error: ', error)
             uiErrorNotification(error)
         }
+        $reset()
       })
-    $reset()
   }
 
   // simply reset the state
   const logout = () => {
     $reset()
-    //TODO: show HOME view
+    // show HOME view
     router.push('/')
   }
 
-  return { user, jwt, authenticated, edited, login, logout }
+  return {user, jwt, authenticated, edited, login, logout}
 })

@@ -1,5 +1,5 @@
 const webpack = require('webpack')
-const { merge } = require('webpack-merge')
+const {merge} = require('webpack-merge')
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
@@ -15,7 +15,7 @@ module.exports = merge(common, {
         use: [
           {
             loader: 'file-loader',
-            options: { outputPath: 'css/', name: '[name].bundle.css' },
+            options: {outputPath: 'css/', name: '[name].bundle.css'},
           },
           'sass-loader',
         ],

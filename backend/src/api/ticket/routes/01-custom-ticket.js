@@ -3,8 +3,8 @@ module.exports = {
     {
       // Path defined with an URL parameter
       method: 'GET',
-      path: '/subjects/own',
-      handler: 'subject.own',
+      path: '/tickets/own',
+      handler: 'ticket.own',
     },
   ],
 }

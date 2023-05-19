@@ -1,12 +1,12 @@
 <script setup>
-  import { useRoute } from 'vue-router'
-  import { useAppStore } from '../stores/app.js'
+import {useRoute} from 'vue-router'
+import {useAppStore} from '../stores/app.js'
 
-  const appStore = useAppStore()
+const appStore = useAppStore()
 
-  // set corresponding menu item to active
-  const route = useRoute()
-  appStore.setMenuItemActive(route.name)
+// set corresponding menu item to active
+const route = useRoute()
+appStore.setMenuItemActive(route.name)
 </script>
 
 <template>
