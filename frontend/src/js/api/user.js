@@ -34,7 +34,7 @@ export async function userLogin(identifier, password) {
   }
 
   try {
-    response = await fetch(`${API_URL}/api/users/me?populate=role`, {
+    response = await fetch(`${API_URL}/api/users/me?populate=[role,avatar]`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -58,8 +58,8 @@ export async function userLogin(identifier, password) {
     throw new ParsingError(error.message)
   }
 
-  console.log(user)
+  console.log('user', user)
   data.user = user
-
+  console.log('data', data)
   return data
 }
