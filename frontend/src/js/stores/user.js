@@ -12,6 +12,7 @@ export const useUserStore = defineStore('user', () => {
   const user = ref({})
   const jwt = ref('')
   const authenticated = ref(false)
+  // flag for the ui to mark the user data as edited
   const edited = ref(false)
 
   const router = useRouter()

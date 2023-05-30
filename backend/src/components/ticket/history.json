@@ -35,6 +35,15 @@
         "resolved",
         "closed"
       ]
+    },
+    "Protocol": {
+      "type": "richtext",
+      "required": true
+    },
+    "minutes": {
+      "type": "integer",
+      "required": true,
+      "min": 1
     }
   }
 }

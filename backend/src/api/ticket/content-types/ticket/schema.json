@@ -18,10 +18,6 @@
       "target": "plugin::users-permissions.user",
       "inversedBy": "tickets"
     },
-    "creationDate": {
-      "type": "datetime",
-      "required": true
-    },
     "status": {
       "type": "enumeration",
       "enum": [
