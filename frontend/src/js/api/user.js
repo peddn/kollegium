@@ -34,7 +34,7 @@ export async function userLogin(identifier, password) {
   }
 
   try {
-    response = await fetch(`${API_URL}/api/users/me?populate=[role,avatar]`, {
+    response = await fetch(`${API_URL}/api/users/me?populate=role`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
