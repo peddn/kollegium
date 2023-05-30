@@ -58,6 +58,7 @@ export async function userLogin(identifier, password) {
     throw new ParsingError(error.message)
   }
 
+  console.log(user)
   data.user = user
 
   return data
