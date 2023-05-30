@@ -10,7 +10,7 @@ module.exports = createCoreController('api::ticket.ticket', ({strapi}) => ({
   async create(ctx) {
     //TODO creator auf user id setzen
     //     creationDate auf den jetzigen Zeitpunkt setzen
-    let entity
+    //let entity
 
     console.log(ctx.request.body)
 
@@ -43,7 +43,7 @@ module.exports = createCoreController('api::ticket.ticket', ({strapi}) => ({
           sort: 'changeDate:asc',
           populate: {
             supporter: {
-              populate: ['avatar'],
+              populate: ['role', 'avatar'],
               fields: ['id', 'username', 'email'],
             },
           },
