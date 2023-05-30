@@ -1,5 +1,120 @@
 'use strict'
 
+/**
+ * Helper functions
+ */
+
+const priorities = ['high', 'medium', 'low']
+const categories = [
+  'hardware',
+  'software',
+  'network',
+  'cloud',
+  'internet',
+  'mobile',
+]
+const problems = [
+  'Probleme beim Drucken',
+  'Bluescreen-Fehler',
+  'Langsamer Netzwerkzugriff',
+  'Passwort zurücksetzen',
+  'Fehlerhafte Softwareinstallation',
+  'Verbindungsprobleme mit dem WLAN',
+  'Datenverlust auf der Festplatte',
+  'Probleme mit dem E-Mail-Zugriff',
+  'Serverausfall',
+  'Mobiles Gerät startet nicht',
+]
+
+// Array of roles that need to be created.
+const roles = ['Teacher', 'Supporter', 'Principal']
+
+function generateRandomTicket() {
+  const randomPriority =
+    priorities[Math.floor(Math.random() * priorities.length)]
+  const randomCategory =
+    categories[Math.floor(Math.random() * categories.length)]
+  const randomProblem = problems[Math.floor(Math.random() * problems.length)]
+
+  const ticket = {
+    data: {
+      status: 'open',
+      priority: randomPriority,
+      outsourced: false,
+      creator: {
+        disconnect: [],
+        connect: [{id: 1}],
+      },
+      subject: '[DEMO-TICKET] ' + randomProblem,
+      externalID: null,
+      category: randomCategory,
+    },
+  }
+
+  return ticket
+}
+
+// Function to create standard roles in the application.
+async function createStandardRoles({strapi}) {
+  strapi.log.info('Initiating role creation process...')
+  for (const role of roles) {
+    // Check if the role already exists in the database.
+    let exists = await strapi.db
+      .query('plugin::users-permissions.role')
+      .findOne({
+        where: {name: role},
+      })
+
+    // If the role does not exist, create a new one.
+    if (!exists) {
+      exists = await strapi.db.query('plugin::users-permissions.role').create({
+        data: {
+          name: role,
+          description: `This role is for ${role}s`,
+          type: role.toLowerCase(),
+        },
+      })
+      // Log a message that a new role has been created.
+      strapi.log.info(`Role [${role}] has been successfully created.`)
+    } else {
+      // Log a message that the role already exists.
+      strapi.log.info(`Role [${role}] already exists. No action required.`)
+    }
+  }
+}
+
+// Function to create demo tickets in the application.
+async function createDemoTickets({strapi}) {
+  strapi.log.info('Initiating demo ticket creation process...')
+
+  // Get all tickets whose subject begins with '[DEMO-TICKET]'
+  const entries = await strapi.entityService.findMany('api::ticket.ticket', {
+    filters: {
+      subject: {
+        $startsWith: '[DEMO-TICKET]',
+      },
+    },
+  })
+
+  const existing = entries.length
+  // Log a message with the current count of demo tickets.
+  strapi.log.info(`There are currently ${existing} demo tickets.`)
+  // If the number of demo tickets is less than specified, create the missing ones.
+  const toCreate = parseInt(process.env.DEMO_TICKETS_COUNT)
+  if (existing < toCreate) {
+    for (let i = toCreate; i > existing; i--) {
+      // Log a message for each missing ticket creation.
+      strapi.log.info(
+        `Creating missing demo ticket number ${toCreate + 1 - i}...`,
+      )
+      const entry = await strapi.entityService.create(
+        'api::ticket.ticket',
+        generateRandomTicket(),
+      )
+    }
+  }
+}
+
 module.exports = {
   /**
    * An asynchronous register function that runs before
@@ -17,75 +132,13 @@ module.exports = {
    * run jobs, or perform some special logic.
    */
   async bootstrap({strapi}) {
-    // create the standard roles for the application
-    strapi.log.info('Creating standard roles:')
-
-    const roles = ['Teacher', 'Supporter', 'Principal']
-
-    for (const role of roles) {
-      let exists = await strapi.db
-        .query('plugin::users-permissions.role')
-        .findOne({
-          where: {name: role},
-        })
-
-      if (!exists) {
-        exists = await strapi.db
-          .query('plugin::users-permissions.role')
-          .create({
-            data: {
-              name: role,
-              description: `The role for ${role}s`,
-              type: role.toLowerCase(),
-            },
-          })
-        strapi.log.info(`Created new role [${role}]`)
-      } else {
-        strapi.log.info(`Role [${role}] already exists.`)
-      }
+    strapi.log.info('Bootstrapping application...')
+    // Create standard roles.
+    await createStandardRoles({strapi})
+    // If CREATE_DEMO_TICKETS environment variable is set to 'true', create demo tickets.
+    if (process.env.CREATE_DEMO_TICKETS === 'true') {
+      await createDemoTickets({strapi})
     }
-
-    const doDemoTickets = process.env.CREATE_DEMO_TICKETS
-    if (doDemoTickets === 'true') {
-      // get all tickets who begin with '[DEMO-TICKET]'
-      const entries = await strapi.entityService.findMany(
-        'api::ticket.ticket',
-        {
-          filters: {
-            subject: {
-              $startsWith: '[DEMO-TICKET]',
-            },
-          },
-        },
-      )
-
-      const demoTicketsCount = entries.length
-
-      strapi.log.info(`Found ${demoTicketsCount} demo tickets.`)
-
-      if (demoTicketsCount < 10) {
-        const missingCount = 10 - demoTicketsCount
-
-        for (let i = 0; i < missingCount; i++) {
-          strapi.log.info(`Creating missing ticket ${i + 1}`)
-          // const entry = await strapi.entityService.create('api::article.article', {
-          //   data: {
-          //     title: 'My Article',
-          //   },
-          // });
-        }
-      }
-    }
-
-    // // title must be unique
-    // const entries = await strapi.entityService.findOne('api::ticket.ticket', {
-    //   filters: {
-    //     title: {
-    //       $eq: 'Hello World',
-    //     },
-    //   },
-    // })
-
-    // console.log(entries)
+    strapi.log.info('Bootstrapping process has been successfully completed.')
   },
 }

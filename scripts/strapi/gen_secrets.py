@@ -12,6 +12,7 @@ env_vars_dict = {
   'HOST': '0.0.0.0',
   'PORT': '1337',
   'CREATE_DEMO_TICKETS': 'true',
+  'DEMO_TICKETS_COUNT': 10
 }
 
 # Generate random keys and add them to the environment variables
