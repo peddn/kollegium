@@ -10,14 +10,18 @@ module.exports = createCoreController('api::ticket.ticket', ({strapi}) => ({
   // extended core controllers
   async create(ctx) {
     console.log(ctx.request.body)
-    // Manipuliere das Anfrage-Body vor der Erstellung
-    //ctx.request.body.field1 = "Neuer Wert für Feld 1";
-    //ctx.request.body.field2 = "Neuer Wert für Feld 2";
-
-    // Calling the default core action
-    const {data, meta} = await super.create(ctx)
-
-    return {data, meta}
+    const userId = ctx.state.user.id
+    const body = ctx.request.body.data
+    const entry = await strapi.entityService.create('api::ticket.ticket', {
+      data: {
+        creator: userId,
+        priority: body.priority,
+        subject: body.subject,
+        description: body.description,
+        category: body.category,
+      },
+    })
+    return entry
   },
 
   async readOwn(ctx) {

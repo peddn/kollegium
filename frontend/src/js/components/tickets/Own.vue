@@ -9,12 +9,13 @@ const userStore = useUserStore()
 
 import StatusLabel from './StatusLabel.vue'
 import AccessDenied from '../user/AccessDenied.vue'
+import Spinner from '../generic/Spinner.vue'
 
 const API_URL = process.env.API_URL
 
 // lifecycle hooks
 onMounted(() => {
-  console.log(`Fetch the data and show the view.`)
+  console.log(`Fetch own tickets and show /tickets/own`)
   ticketStore.own()
 })
 
@@ -48,13 +49,12 @@ const getDateDifference = (ticket) => {
 <template>
   <div v-if="userStore.authenticated">
     <div v-if="ticketStore.loading">
-      <div uk-spinner></div>
+      <h2 class="uk-heading-divider">meine Tickets</h2>
+      <Spinner ratio="2" />
     </div>
     <div v-else>
+      <h2 class="uk-heading-divider">meine Tickets</h2>
       <table class="uk-table uk-table-divider uk-table-hover uk-table-middle">
-        <caption>
-          Ihre Tikets
-        </caption>
         <thead>
           <tr>
             <th class="uk-table-shrink uk-text-nowrap">Status</th>
