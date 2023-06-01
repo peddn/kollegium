@@ -24,12 +24,62 @@ const userStore = useUserStore()
             >
               <router-link to="/dashboard">Dashboard</router-link>
             </li>
-            <li
+            <!--             <li
               v-bind:class="{
                 'uk-active': appStore.isMenuItemActive('tickets'),
               }"
             >
               <router-link to="/tickets">tickets</router-link>
+            </li> -->
+
+            <li>
+              <a href="#">Tickets</a>
+              <div class="uk-navbar-dropdown">
+                <ul class="uk-nav uk-navbar-dropdown-nav">
+                  <li
+                    v-bind:class="{
+                      'uk-active': appStore.isMenuItemActive('ticketsOwn'),
+                    }"
+                  >
+                    <router-link to="/tickets/own">meine Tickets</router-link>
+                  </li>
+                  <li
+                    v-bind:class="{
+                      'uk-active': appStore.isMenuItemActive('ticketsCreate'),
+                    }"
+                  >
+                    <router-link to="/tickets/create">neues Ticket</router-link>
+                  </li>
+                  <li class="uk-nav-divider"></li>
+                  <li
+                    v-bind:class="{
+                      'uk-active': appStore.isMenuItemActive('ticketsAssigned'),
+                    }"
+                  >
+                    <router-link to="/tickets/assigned"
+                      >zugewiesene Tickets</router-link
+                    >
+                  </li>
+                  <li class="uk-nav-divider"></li>
+                  <li
+                    v-bind:class="{
+                      'uk-active': appStore.isMenuItemActive('ticketsOpen'),
+                    }"
+                  >
+                    <router-link to="/tickets/open">offene Tickets</router-link>
+                  </li>
+                  <li class="uk-nav-divider"></li>
+                  <li
+                    v-bind:class="{
+                      'uk-active': appStore.isMenuItemActive('ticketsManage'),
+                    }"
+                  >
+                    <router-link to="/tickets/manage"
+                      >Ticketmanager</router-link
+                    >
+                  </li>
+                </ul>
+              </div>
             </li>
           </ul>
           <ul class="uk-navbar-nav" v-else>

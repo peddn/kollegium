@@ -7,13 +7,9 @@
 const {createCoreController} = require('@strapi/strapi').factories
 
 module.exports = createCoreController('api::ticket.ticket', ({strapi}) => ({
+  // extended core controllers
   async create(ctx) {
-    //TODO creator auf user id setzen
-    //     creationDate auf den jetzigen Zeitpunkt setzen
-    //let entity
-
     console.log(ctx.request.body)
-
     // Manipuliere das Anfrage-Body vor der Erstellung
     //ctx.request.body.field1 = "Neuer Wert für Feld 1";
     //ctx.request.body.field2 = "Neuer Wert für Feld 2";
@@ -23,7 +19,8 @@ module.exports = createCoreController('api::ticket.ticket', ({strapi}) => ({
 
     return {data, meta}
   },
-  async own(ctx) {
+
+  async readOwn(ctx) {
     // get the user ID of the logged in user
     const userId = ctx.state.user.id
     // find the data
@@ -57,6 +54,16 @@ module.exports = createCoreController('api::ticket.ticket', ({strapi}) => ({
     })
     return entries
   },
+
+  async updateOwn(ctx) {
+    console.log(ctx.request.body)
+    // some logic here
+    const {data, meta} = await super.update(ctx)
+    // some more logic
+
+    return {data, meta}
+  },
+
   async external(ctx) {
     // get the user ID of the logged in user
     //const userId = ctx.state.user.id

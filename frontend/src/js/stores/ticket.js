@@ -36,7 +36,7 @@ export const useTicketStore = defineStore('ticket', () => {
           'check',
           'bottom-right',
         )
-        router.push('/tickets')
+        router.push('/tickets/own')
       })
       .catch((error) => {
         switch (error.name) {

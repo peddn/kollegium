@@ -18,17 +18,11 @@ appStore.setMenuItemActive(route.name)
 
 <template>
   <div v-if="userStore.authenticated">
-    <div class="uk-container">
-      <h2 class="uk-heading-divider uk-margin-top">
-        {{ userStore.user.username }} - dashboard
-      </h2>
-    </div>
+    <h2 class="uk-heading-divider">
+      {{ userStore.user.username }} - dashboard
+    </h2>
   </div>
   <div v-else>
-    <div class="uk-section">
-      <div class="uk-container">
-        <AccessDenied />
-      </div>
-    </div>
+    <AccessDenied />
   </div>
 </template>

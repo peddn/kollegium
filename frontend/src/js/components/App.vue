@@ -5,7 +5,11 @@ import LoginModal from '../components/user/LoginModal.vue'
 
 <template>
   <NavbarMain />
-  <router-view></router-view>
+  <div class="uk-section-small">
+    <div class="uk-container">
+      <router-view></router-view>
+    </div>
+  </div>
   <div id="modals">
     <LoginModal />
   </div>

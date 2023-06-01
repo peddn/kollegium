@@ -44,4 +44,6 @@ with envfile.open('x') as file:
   for key, value in env_vars_dict.items():
       file.write(f"{key}={value}\n")
 
-print('Successfully created a new .env file with updated environment variables.')
+print('Successfully created a new standard .env file with new secrets.')
+print('You can customize this file according to your needs.')
+

@@ -10,9 +10,5 @@ appStore.setMenuItemActive(route.name)
 </script>
 
 <template>
-  <div class="uk-section">
-    <div class="uk-container">
-      <h2>Home</h2>
-    </div>
-  </div>
+  <h2 class="uk-heading-divider">Home</h2>
 </template>
