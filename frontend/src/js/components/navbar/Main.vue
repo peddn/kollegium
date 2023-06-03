@@ -68,16 +68,6 @@ const userStore = useUserStore()
                   >
                     <router-link to="/tickets/open">offene Tickets</router-link>
                   </li>
-                  <li class="uk-nav-divider"></li>
-                  <li
-                    v-bind:class="{
-                      'uk-active': appStore.isMenuItemActive('ticketsManage'),
-                    }"
-                  >
-                    <router-link to="/tickets/manage"
-                      >Ticketmanager</router-link
-                    >
-                  </li>
                 </ul>
               </div>
             </li>

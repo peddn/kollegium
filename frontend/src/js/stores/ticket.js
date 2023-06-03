@@ -24,45 +24,57 @@ export const useTicketStore = defineStore('ticket', () => {
   const tickets = ref([])
   const loading = ref(true)
 
+  // sorting parameters
+  const sortFiled = ref('createdAt')
+  const sortOrder = ref('asc')
+
+  // IDEA: put this info in the user settings
+  // TODO: put this in app store
+  // pagination parameters
+  const page = ref(1)
+  const entitiesPerPage = ref(10)
+
   const $reset = () => {
     tickets.value = []
     loading.value = true
   }
 
-  const own = async () => {
+  const handleError = (error) => {
+    switch (error.name) {
+      case NetworkError.name:
+        console.log('network error')
+        uiErrorNotification(error)
+        break
+      case HTTPError.name:
+        console.log('http error')
+        uiErrorNotification(error)
+        break
+      case ParsingError.name:
+        console.log('parsing error')
+        uiErrorNotification(error)
+        break
+      default:
+        console.log('unknown error')
+        uiErrorNotification(error)
+    }
+  }
+
+  const ownReset = async () => {
+    console.log('ticketStore', 'ownReset')
     $reset()
     ticketsOwn(userStore.jwt)
       .then((response) => {
         tickets.value = response
-        console.log(tickets.value)
         loading.value = false
         uiNotification(
-          'Tickets erfolgreich geladen.',
+          'Meine Tickets erfolgreich geladen.',
           'success',
           'check',
           'bottom-right',
         )
         router.push('/tickets/own')
       })
-      .catch((error) => {
-        switch (error.name) {
-          case NetworkError.name:
-            console.error('network error: ', error)
-            uiErrorNotification(error)
-            break
-          case HTTPError.name:
-            console.error('http error: ', error)
-            uiErrorNotification(error)
-            break
-          case ParsingError.name:
-            console.error('parsing error: ', error)
-            uiErrorNotification(error)
-            break
-          default:
-            console.error('unknown error: ', error)
-            uiErrorNotification(error)
-        }
-      })
+      .catch(handleError)
   }
 
   const manage = async () => {
@@ -75,23 +87,7 @@ export const useTicketStore = defineStore('ticket', () => {
         router.push('/tickets/manage')
       })
       .catch((error) => {
-        switch (error.name) {
-          case NetworkError.name:
-            console.error('network error: ', error)
-            uiErrorNotification(error)
-            break
-          case HTTPError.name:
-            console.error('http error: ', error)
-            uiErrorNotification(error)
-            break
-          case ParsingError.name:
-            console.error('parsing error: ', error)
-            uiErrorNotification(error)
-            break
-          default:
-            console.error('unknown error: ', error)
-            uiErrorNotification(error)
-        }
+        handleError(error)
       })
   }
 
@@ -104,25 +100,7 @@ export const useTicketStore = defineStore('ticket', () => {
         uiNotification('open() called.', 'success', 'check', 'bottom-right')
         router.push('/tickets/open')
       })
-      .catch((error) => {
-        switch (error.name) {
-          case NetworkError.name:
-            console.error('network error: ', error)
-            uiErrorNotification(error)
-            break
-          case HTTPError.name:
-            console.error('http error: ', error)
-            uiErrorNotification(error)
-            break
-          case ParsingError.name:
-            console.error('parsing error: ', error)
-            uiErrorNotification(error)
-            break
-          default:
-            console.error('unknown error: ', error)
-            uiErrorNotification(error)
-        }
-      })
+      .catch(handleError)
   }
 
   const assigned = async () => {
@@ -134,64 +112,26 @@ export const useTicketStore = defineStore('ticket', () => {
         uiNotification('assigned() called.', 'success', 'check', 'bottom-right')
         router.push('/tickets/assigned')
       })
-      .catch((error) => {
-        switch (error.name) {
-          case NetworkError.name:
-            console.error('network error: ', error)
-            uiErrorNotification(error)
-            break
-          case HTTPError.name:
-            console.error('http error: ', error)
-            uiErrorNotification(error)
-            break
-          case ParsingError.name:
-            console.error('parsing error: ', error)
-            uiErrorNotification(error)
-            break
-          default:
-            console.error('unknown error: ', error)
-            uiErrorNotification(error)
-        }
-      })
+      .catch(handleError)
   }
 
-  const create = async () => {
+  const create = async (ticket) => {
     $reset()
-
-    // test data
-    const data = {
-      data: {
-        priority: 'low',
-        subject: 'test-data',
-        description: 'test-data',
-        category: 'software',
-      },
-    }
-    ticketsCreate(userStore.jwt, JSON.stringify(data))
+    ticketsCreate(userStore.jwt, JSON.stringify(ticket))
       .then((response) => {
         console.log(response)
         loading.value = false
-        uiNotification('create() called.', 'success', 'check', 'bottom-right')
+        uiNotification(
+          'Neues Ticket erfolgreich erstellt.',
+          'success',
+          'check',
+          'bottom-right',
+        )
         router.push('/tickets/own')
       })
       .catch((error) => {
-        switch (error.name) {
-          case NetworkError.name:
-            console.error('network error: ', error)
-            uiErrorNotification(error)
-            break
-          case HTTPError.name:
-            console.error('http error: ', error)
-            uiErrorNotification(error)
-            break
-          case ParsingError.name:
-            console.error('parsing error: ', error)
-            uiErrorNotification(error)
-            break
-          default:
-            console.error('unknown error: ', error)
-            uiErrorNotification(error)
-        }
+        handleError(error)
+        loading.value = false
       })
   }
 
@@ -200,5 +140,5 @@ export const useTicketStore = defineStore('ticket', () => {
     $reset()
   }
 
-  return {tickets, loading, own, manage, open, assigned, create, reset}
+  return {tickets, loading, ownReset, manage, open, assigned, create, reset}
 })

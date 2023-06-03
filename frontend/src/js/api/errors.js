@@ -6,8 +6,9 @@ class NetworkError extends Error {
 }
 
 class HTTPError extends Error {
-  constructor(message) {
-    super(message)
+  constructor(error) {
+    super(error.name + ': ' + error.message)
+    // TODO: status evtuell auch als eigenschaft des Errors?
     this.name = 'HTTPError'
   }
 }

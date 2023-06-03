@@ -1,4 +1,5 @@
 import {NetworkError, HTTPError, ParsingError} from './errors.js'
+import {delay} from '../utils.js'
 
 const API_URL = process.env.API_URL
 
@@ -8,13 +9,16 @@ export async function ticketsOwn(token) {
   let response
 
   try {
-    response = await fetch(`${API_URL}/api/tickets/own`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+    response = await fetch(
+      `${API_URL}/api/tickets/own?sort[0]=createdAt:desc`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
       },
-    })
+    )
   } catch (error) {
     throw new NetworkError(error.message)
   }
@@ -30,7 +34,9 @@ export async function ticketsOwn(token) {
   } catch (error) {
     throw new ParsingError(error.message)
   }
-  console.log('DATA: ', data)
+
+  await delay(250)
+
   return data
 }
 
@@ -51,6 +57,7 @@ export async function ticketsCreate(token, data) {
   console.log('api call create')
   let response
 
+  // post the ticket data to the create endpoint
   try {
     response = await fetch(`${API_URL}/api/tickets`, {
       method: 'POST',
@@ -64,11 +71,19 @@ export async function ticketsCreate(token, data) {
     throw new NetworkError(error.message)
   }
 
+  // if we get a HTTP error
   if (!response.ok) {
-    const errorMessage = response.status + ': ' + response.statusText
-    throw new HTTPError(errorMessage)
+    let err
+    try {
+      err = await response.json()
+    } catch (error) {
+      throw new ParsingError(error.message)
+    }
+    // TODO: es gibt ein array von Errors. für jeden einen Fehler werfen!
+    throw new HTTPError(err.error)
   }
 
+  // if the creation was successful, we get our new ticket back
   let ticket
   try {
     ticket = await response.json()

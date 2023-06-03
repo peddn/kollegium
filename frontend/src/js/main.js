@@ -8,13 +8,12 @@ import UIkit from 'uikit'
 import Icons from 'uikit/dist/js/uikit-icons'
 
 import App from './components/App.vue'
-import Home from './components/Home.vue'
+import Home from './components/home/Home.vue'
 import Dashboard from './components/dashboard/Dashboard.vue'
 import TicketsOwn from './components/tickets/Own.vue'
 import TicketsCreate from './components/tickets/Create.vue'
 import TicketsAssigend from './components/tickets/Assigned.vue'
 import TicketsOpen from './components/tickets/Open.vue'
-import TicketsManage from './components/tickets/Manage.vue'
 import Account from './components/user/Account.vue'
 
 // inject axios in evers store
@@ -52,11 +51,6 @@ const routes = [
     path: '/tickets/open',
     name: 'ticketsOpen',
     component: TicketsOpen,
-  },
-  {
-    path: '/tickets/manage',
-    name: 'ticketsManage',
-    component: TicketsManage,
   },
   {
     path: '/account',
