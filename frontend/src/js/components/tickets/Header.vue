@@ -1,9 +1,11 @@
 <script setup>
-import {computed} from 'vue'
+import {ref, computed, onMounted} from 'vue'
 
 import {useTicketStore} from '../../stores/ticket.js'
+import {useAppStore} from '../../stores/app'
 
 const ticketStore = useTicketStore()
+const appStore = useAppStore()
 
 const props = defineProps({
   text: {
@@ -12,6 +14,14 @@ const props = defineProps({
   reloadFunction: {
     type: String,
   },
+})
+
+const limit = ref(0)
+
+// lifecycle hooks
+onMounted(() => {
+  console.log('onMounted:Header.vue')
+  limit.value = appStore.pagination.limit
 })
 
 const hasReloadFunction = computed(() => {
@@ -23,6 +33,15 @@ const reload = () => {
     ticketStore[props.reloadFunction]()
   }
 }
+
+const changeHandler = () => {
+  appStore.pagination.limit = parseInt(limit.value)
+  reload()
+}
+
+const isSelected = (limit) => {
+  return limit === appStore.pagination.limit
+}
 </script>
 
 <template>
@@ -33,8 +52,24 @@ const reload = () => {
       <div class="uk-navbar-left">
         <div class="uk-navbar-item uk-logo">{{ props.text }}</div>
       </div>
-      <div class="uk-navbar-right" v-if="hasReloadFunction">
-        <div class="uk-navbar-item">
+      <div class="uk-navbar-right">
+        <div class="uk-navbar-item" v-if="hasReloadFunction">
+          <form>
+            <select
+              class="uk-select uk-form-small uk-form-width-small"
+              v-model="limit"
+              v-on:change="changeHandler"
+            >
+              <option value="5" v-bind:selected="isSelected(5)">5</option>
+              <option value="10" v-bind:selected="isSelected(10)">10</option>
+              <option value="15" v-bind:selected="isSelected(15)">15</option>
+              <option value="20" v-bind:selected="isSelected(20)">20</option>
+              <option value="25" v-bind:selected="isSelected(15)">25</option>
+            </select>
+          </form>
+        </div>
+
+        <div class="uk-navbar-item" v-if="hasReloadFunction">
           <a class="uk-icon-button" uk-icon="refresh" v-on:click="reload"></a>
         </div>
       </div>

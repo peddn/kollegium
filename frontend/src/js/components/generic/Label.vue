@@ -1,16 +1,15 @@
 <script setup>
-defineProps(['style', 'message'])
+import {ref, computed} from 'vue'
+
+const props = defineProps(['modifier', 'message', 'icon'])
+
+const labelClass = ref('uk-label')
+const modifierClass = ref(`uk-label-${props.modifier}`)
 </script>
 
 <template>
-  <span v-if="style === 'success'" class="uk-label uk-label-success">{{
+  <span v-bind:class="[labelClass, modifierClass]" v-if="props.modifier">{{
     message
   }}</span>
-  <span v-else-if="style === 'warning'" class="uk-label uk-label-warning">{{
-    message
-  }}</span>
-  <span v-else-if="style === 'danger'" class="uk-label uk-label-danger">{{
-    message
-  }}</span>
-  <span v-else class="uk-label">{{ message }}</span>
+  <span v-bind:class="[labelClass]" v-else>{{ message }}</span>
 </template>

@@ -15,6 +15,7 @@ import {uiNotification} from '../utils.js'
 import {uiErrorNotification} from '../utils.js'
 
 import {useUserStore} from './user.js'
+import {useAppStore} from './app.js'
 
 export const useTicketStore = defineStore('ticket', () => {
   const router = useRouter()
@@ -27,12 +28,6 @@ export const useTicketStore = defineStore('ticket', () => {
   // sorting parameters
   const sortFiled = ref('createdAt')
   const sortOrder = ref('asc')
-
-  // IDEA: put this info in the user settings
-  // TODO: put this in app store
-  // pagination parameters
-  const page = ref(1)
-  const entitiesPerPage = ref(10)
 
   const $reset = () => {
     tickets.value = []
@@ -61,10 +56,29 @@ export const useTicketStore = defineStore('ticket', () => {
 
   const ownReset = async () => {
     console.log('ticketStore', 'ownReset')
+
+    const appStore = useAppStore()
+
     $reset()
-    ticketsOwn(userStore.jwt)
+    ticketsOwn(userStore.jwt, appStore.pagination)
       .then((response) => {
-        tickets.value = response
+        tickets.value = response.data
+
+        // TODO in eine Funktion auslagern
+        //
+        let pagination = response.meta.pagination
+
+        // if (typeof pagination.start === 'string') {
+        //   pagination.start = parseInt(pagination.start)
+        // }
+        // if (typeof pagination.limit === 'string') {
+        //   pagination.limit = parseInt(pagination.limit)
+        // }
+        // if (typeof pagination.count === 'string') {
+        //   pagination.count = parseInt(pagination.count)
+        // }
+
+        appStore.setPagination(pagination)
         loading.value = false
         uiNotification(
           'Meine Tickets erfolgreich geladen.',
@@ -140,5 +154,14 @@ export const useTicketStore = defineStore('ticket', () => {
     $reset()
   }
 
-  return {tickets, loading, ownReset, manage, open, assigned, create, reset}
+  return {
+    tickets,
+    loading,
+    ownReset,
+    manage,
+    open,
+    assigned,
+    create,
+    reset,
+  }
 })

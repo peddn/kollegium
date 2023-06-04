@@ -12,12 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "creator": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "tickets"
-    },
     "status": {
       "type": "enumeration",
       "enum": [
@@ -88,6 +82,18 @@
     },
     "externalID": {
       "type": "uid"
+    },
+    "creator": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "ticketsOwn"
+    },
+    "supporter": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "ticketsAssigned"
     }
   }
 }

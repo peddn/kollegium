@@ -3,14 +3,14 @@ import {delay} from '../utils.js'
 
 const API_URL = process.env.API_URL
 
-export async function ticketsOwn(token) {
+export async function ticketsOwn(token, pagination) {
   console.log('api call own')
   // TODO put pagination and order in here
   let response
 
   try {
     response = await fetch(
-      `${API_URL}/api/tickets/own?sort[0]=createdAt:desc`,
+      `${API_URL}/api/tickets/own?sort[0]=createdAt:desc&pagination[start]=${pagination.start}&pagination[limit]=${pagination.limit}`,
       {
         method: 'GET',
         headers: {
@@ -36,6 +36,8 @@ export async function ticketsOwn(token) {
   }
 
   await delay(250)
+
+  console.log('API-DATA: ', data)
 
   return data
 }

@@ -11,14 +11,51 @@ $global-success-background: #32d296 !default;
 $global-warning-background: #faa05a !default;
 $global-danger-background: #f0506e !default;
 
+$status-label-colors: (
+  'uk-label-open': #ff6347,
+  // Tomatenrot: auffällig und signalisiert die Dringlichkeit der Aktion
+  'uk-label-inprogress': #ffda79,
+  // Goldgelb: strahlt Positivität und Voranschreiten aus
+  'uk-label-pending': #ffa500,
+  // Orange: auffällig und signalisiert Warten oder Pausieren
+  'uk-label-resolved': #3cb371,
+  // Medium Sea Green: eine beruhigende Farbe, die Lösung und Erfolg darstellt
+  'uk-label-closed': #778899,
+  // Light Slate Gray: eine neutrale und stille Farbe, die signalisiert, dass keine Aktion mehr erforderlich ist
+);
+
+$category-label-colors: (
+  'uk-label-hardware': #6a5acd,
+  // Slate Blue
+  'uk-label-software': #ee82ee,
+  // Violett
+  'uk-label-network': #5f9ea0,
+  // Cadet Blue
+  'uk-label-internet': #008080,
+  // Teal
+  'uk-label-cloud': #87ceeb,
+  // Sky Blue
+  'uk-label-mobile': #f0e68c,
+  // Khaki
+);
+
 // 2. Import default variables and available mixins.
 @import 'uikit/src/scss/variables-theme.scss';
 @import 'uikit/src/scss/mixins-theme.scss';
 
 // 3. Your custom mixin overwrites.
-//@mixin hook-card() {
-//  color: #000;
-//}
+@mixin hook-label() {
+  @each $status, $color in $status-label-colors {
+    &.#{$status} {
+      background-color: $color;
+    }
+  }
+  @each $category, $color in $category-label-colors {
+    &.#{$category} {
+      background-color: $color;
+    }
+  }
+}
 
 // 4. Import UIkit.
 @import 'uikit/src/scss/uikit-theme.scss';

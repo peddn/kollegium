@@ -69,9 +69,8 @@ module.exports = createCoreController('api::ticket.ticket', ({strapi}) => ({
       },
     }
 
-    // populate with history data
+    // populate with additional data
     sanitizedQueryParams.populate = {
-      //fields: ['id', 'username', 'email'],
       // populate the repeatable component 'history'
       history: {
         sort: 'changeDate:asc',
@@ -82,21 +81,53 @@ module.exports = createCoreController('api::ticket.ticket', ({strapi}) => ({
           },
         },
       },
-      // populate the 'creator' relation
-      //creator: {
-      //  populate: ['avatar'],
-      //  fields: ['id', 'username', 'email'],
-      //},
+      supporter: {
+        populate: {
+          avatar: {
+            fields: ['url'],
+          },
+        },
+        fields: ['id', 'username', 'email'],
+      },
     }
 
+    console.log(sanitizedQueryParams)
+
+    // TODO sicherstellen, dass start ein Vielfaches von limit ist
+    //      sicherstellen, dass start nicht größer als count ist - falls doch einen ValidationError werfen??? eher einfach nichts zurückgeben...
+    //      parsing error behandlen...
+    sanitizedQueryParams.start = parseInt(sanitizedQueryParams.pagination.start)
+    sanitizedQueryParams.limit = parseInt(sanitizedQueryParams.pagination.limit)
+
     // find the tickets
-    const tickets = await strapi.entityService.findMany(
+    const entities = await strapi.entityService.findMany(
       contentType.uid,
       sanitizedQueryParams,
     )
 
-    // return the sanitized tickets
-    return await contentAPI.output(tickets, contentType, ctx.state.auth)
+    const data = await contentAPI.output(entities, contentType, ctx.state.auth)
+
+    // do a second direct database query to get the total count
+    const count = await strapi.db.query('api::ticket.ticket').count({
+      where: {
+        creator: {
+          id: {
+            $eq: userId,
+          },
+        },
+      },
+    })
+
+    const meta = {
+      pagination: {
+        start: sanitizedQueryParams.start,
+        limit: sanitizedQueryParams.limit,
+        count: count,
+      },
+    }
+
+    // return the sanitized tickets and meta data
+    return {data, meta}
   },
 
   async updateOwn(ctx) {
